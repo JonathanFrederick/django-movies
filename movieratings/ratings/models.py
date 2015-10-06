@@ -3,12 +3,17 @@ from django.db import models
 
 # Create your models here.
 class Rater(models.Model):
-    rater_id = models.IntegerField()
+    rater = models.IntegerField()
 
 
 
 
 
-# class Movie() # 215
+class Movie(models.Model): # 215
+    title = models.CharField(max_length=215)
+    movie = models.IntegerField()
+
+
+
 
 # class Rating()
