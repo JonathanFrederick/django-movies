@@ -9,11 +9,14 @@ class Rater(models.Model):
 
 
 
-class Movie(models.Model): # 215
+class Movie(models.Model):
     title = models.CharField(max_length=215)
     movie = models.IntegerField()
 
 
 
 
-# class Rating()
+class Rating(models.Model):
+    stars = models.SmallIntegerField()
+    rater = models.ForeignKey(Rater)
+    movie = models.ForeignKey(Movie)
