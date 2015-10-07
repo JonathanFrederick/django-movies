@@ -1,5 +1,5 @@
 from django.contrib import admin
-from models import Movie, Rater, Rating
+from .models import Movie, Rater, Rating
 # Register your models here.
 
 
@@ -12,7 +12,7 @@ class RaterAdmin(admin.ModelAdmin):
 
 
 class RatingAdmin(admin.ModelAdmin):
-    list_display = ['movie, rater, stars']
+    list_display = ['movie', 'rater', 'stars']
 
 
 admin.site.register(Movie, MovieAdmin)
