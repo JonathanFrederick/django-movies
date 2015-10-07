@@ -3,22 +3,19 @@ from django.db import models
 
 # Create your models here.
 class Rater(models.Model):
-    rater = models.IntegerField()  # pass, id number already exists
-
     def __str__(self):
-        return str(self.rater)
+        return str(self.id)
 
 
 class Movie(models.Model):
     title = models.CharField(max_length=215)
-    movie = models.IntegerField()
 
     def average_rating(self):
         # give key because aggregate returns as database entry
         self.rating_set.aggregate(models.Avg('stars'))['stars_avg']
 
     def __str__(self):
-        return str(self.movie) + ' - ' + str(self.title)
+        return str(self.id) + ' - ' + str(self.title)
 
 
 class Rating(models.Model):

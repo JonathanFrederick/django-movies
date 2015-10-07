@@ -4,11 +4,11 @@ from .models import Movie, Rater, Rating
 
 
 class MovieAdmin(admin.ModelAdmin):
-    list_display = ['movie', 'title']
+    list_display = ['id','title']
 
 
 class RaterAdmin(admin.ModelAdmin):
-    list_display = ['rater']  # just 'id'
+    list_display = ['id']  # just 'id'
 
 
 class RatingAdmin(admin.ModelAdmin):
