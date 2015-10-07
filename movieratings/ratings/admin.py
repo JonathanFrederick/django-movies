@@ -8,13 +8,13 @@ class MovieAdmin(admin.ModelAdmin):
 
 
 class RaterAdmin(admin.ModelAdmin):
-    list_display = ['rater']
+    list_display = ['rater']  # just 'id'
 
 
 class RatingAdmin(admin.ModelAdmin):
     list_display = ['movie', 'rater', 'stars']
 
 
-admin.site.register(Movie, MovieAdmin)
-admin.site.register(Rater, RaterAdmin)
+admin.site.register(Movie, MovieAdmin)  # don't need Admin here
+admin.site.register(Rater, RaterAdmin)  # don't need Admin here
 admin.site.register(Rating, RatingAdmin)
