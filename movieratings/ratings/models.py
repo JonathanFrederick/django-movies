@@ -27,3 +27,67 @@ class Rating(models.Model):
         return '{}: {} ({})'.format(str(self.movie),
                                     str(self.stars),
                                     str(self.rater))
+
+
+def load_initial_data():
+    import csv
+    import json
+
+    raters = []
+    with open('data/users.dat') as f:
+        reader = csv.DictReader([line.replace('::', '\t') for line in f],
+                                fieldnames='UserID::Gender::Age::Occupation::Zip-code'.split('::'),
+                                delimiter='\t')
+        for row in reader:
+            rater = {
+                'fields': {
+                    'gender': row['Gender'],
+                    'age': row['Age'],
+                    'occupation': row['Occupation'],
+                    'zipcode': row['Zip-code'],
+                },
+                'model': 'moviedb.Rater',
+                'pk': int(row['UserID']),
+            }
+            raters.append(rater)
+    with open('ratings/fixtures/raters.json', 'w') as f:
+        f.write(json.dumps(raters))
+
+    movies = []
+    with open('data/movies.dat', encoding='windows-1252') as f:
+        reader = csv.DictReader([line.replace('::', '\t') for line in f],
+                                fieldnames='MovieID::Title::Genres'
+                                .split('::'),
+                                delimiter='\t')
+        for row in reader:
+            movie = {
+                'fields': {
+                    'title': row['Title'],
+                },
+                'model': 'ratings.Movie',
+                'pk': int(row['MovieID'])
+            }
+            movies.append(movie)
+
+    with open('ratings/fixtures/movies.json', 'w') as f:
+        f.write(json.dumps(movies))
+
+    raters = []
+    with open('data/ratings.dat') as f:
+        reader = csv.DictReader([line.replace('::', '\t') for line in f],
+                                fieldnames='UserID::MovieID::Rating::Timestamp'
+                                .split('::'),
+                                delimiter='\t')
+        for row in reader:
+            movie = {
+                'fields': {
+                    'stars': row['Rating'],
+                    'rater': row['UserID'],
+                    'movie': row['MovieID'],
+                },
+                'model': 'ratings.Rating',
+            }
+            movies.append(movie)
+
+    with open('ratings/fixtures/ratings.json', 'w') as f:
+        f.write(json.dumps(movies))
