@@ -13,12 +13,12 @@ class Movie(models.Model):
     title = models.CharField(max_length=215)
     movie = models.IntegerField()
 
-    # def average rating(self):
-    #     self.rating_set.aggregate(models.Avg('stars'))['stars_avg']  # give key because aggregate returns as database entry
-
+    def average_rating(self):
+        # give key because aggregate returns as database entry
+        self.rating_set.aggregate(models.Avg('stars'))['stars_avg']
 
     def __str__(self):
-        return str(self.movie) + ' - ' + self.title
+        return str(self.movie) + ' - ' + str(self.title)
 
 
 class Rating(models.Model):
@@ -27,4 +27,6 @@ class Rating(models.Model):
     movie = models.ForeignKey(Movie)
 
     def __str__(self):
-        return self.movie + ': ' + str(self.stars) + '(' + self.rater + ')'
+        return '{}: {} ({})'.format(str(self.movie),
+                                    str(self.stars),
+                                    str(self.rater))
