@@ -27,3 +27,28 @@ class Rating(models.Model):
         return '{}: {} ({})'.format(str(self.movie),
                                     str(self.stars),
                                     str(self.rater))
+
+
+def load_initial_data():
+    import csv
+    import json
+
+    movies = []
+    raters = []
+
+    with open('data/movies.csv') as f:
+        reader = csv.DictReader(f, fieldnames=['movieId', 'title', 'genres'])
+        for row in reader:
+            movie = {
+                'fields': {
+                    'title': row['title']
+                },
+                'model': 'ratings.Movie',
+                'pk': row['movieId']
+            }
+            movies.append(movie)
+
+    with open('movies.json', 'w') as f:
+        f.write(json.dumps(movies))
+
+    print(json.dumps(movies, sort_keys=True, indent=4, separators=(',', ': ')))
