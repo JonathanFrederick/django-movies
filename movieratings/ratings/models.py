@@ -3,6 +3,21 @@ from django.db import models
 
 # Create your models here.
 class Rater(models.Model):  # TODO Add demographic data functionality
+    MALE = 'M'
+    FEMALE = 'F'
+    NOT_GIVEN = 'X'
+
+    GENDER_CHOICES = (
+        (MALE, 'Male'),
+        (FEMALE, 'Female'),
+        (NOT_GIVEN, 'X'),)
+
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES,
+                              default=NOT_GIVEN)
+    zipcode = models.CharField(max_length=5, default='00000')
+    age = models.PositiveIntegerField(default='0')
+    occupation = models.CharField(max_length=40, default='00')
+
     def __str__(self):
         return str(self.id)
 
@@ -41,10 +56,10 @@ def load_initial_data():
         for row in reader:
             rater = {
                 'fields': {
-                    #'gender': row['Gender'],
-                    #'age': row['Age'],
-                    #'occupation': row['Occupation'],
-                    #'zipcode': row['Zip-code'],
+                    'gender': row['Gender'],
+                    'age': row['Age'],
+                    'occupation': row['Occupation'],
+                    'zipcode': row['Zip-code'],
                 },
                 'model': 'ratings.Rater',
                 'pk': int(row['UserID']),
