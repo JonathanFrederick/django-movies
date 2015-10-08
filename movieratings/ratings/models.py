@@ -12,7 +12,7 @@ class Movie(models.Model):
 
     def average_rating(self):
         # give key because aggregate returns as database entry
-        self.rating_set.aggregate(models.Avg('stars'))['stars_avg']
+        return self.rating_set.aggregate(models.Avg('stars'))['stars__avg']
 
     def __str__(self):
         return str(self.id) + ' - ' + str(self.title)
@@ -41,12 +41,12 @@ def load_initial_data():
         for row in reader:
             rater = {
                 'fields': {
-                    'gender': row['Gender'],
-                    'age': row['Age'],
-                    'occupation': row['Occupation'],
-                    'zipcode': row['Zip-code'],
+                    #'gender': row['Gender'],
+                    #'age': row['Age'],
+                    #'occupation': row['Occupation'],
+                    #'zipcode': row['Zip-code'],
                 },
-                'model': 'moviedb.Rater',
+                'model': 'ratings.Rater',
                 'pk': int(row['UserID']),
             }
             raters.append(rater)
@@ -72,14 +72,14 @@ def load_initial_data():
     with open('ratings/fixtures/movies.json', 'w') as f:
         f.write(json.dumps(movies))
 
-    raters = []
+    ratings = []
     with open('data/ratings.dat') as f:
         reader = csv.DictReader([line.replace('::', '\t') for line in f],
                                 fieldnames='UserID::MovieID::Rating::Timestamp'
                                 .split('::'),
                                 delimiter='\t')
         for row in reader:
-            movie = {
+            rating = {
                 'fields': {
                     'stars': row['Rating'],
                     'rater': row['UserID'],
@@ -87,7 +87,7 @@ def load_initial_data():
                 },
                 'model': 'ratings.Rating',
             }
-            movies.append(movie)
+            ratings.append(rating)
 
     with open('ratings/fixtures/ratings.json', 'w') as f:
-        f.write(json.dumps(movies))
+        f.write(json.dumps(ratings))
