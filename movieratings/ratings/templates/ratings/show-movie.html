@@ -4,7 +4,7 @@
 <h4>Ratings:</h4>
 <ul>
   {% for rating in movie.rating_set.all %}
-    <li>Rater #{{ rating.rater }}: {{rating.stars}} stars</li>
+    <li><a href="{% url 'rater_detail' rating.rater.pk %}"> Rater #{{ rating.rater }}</a>: {{rating.stars}} stars</li>
     {% endfor %}
 </ul>
 {% endblock %}
