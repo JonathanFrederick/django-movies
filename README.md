@@ -26,3 +26,4 @@
 ## To use
 
 To view the top 20 movies by average rating, open ```127.0.0.1:8000/db/movies/top``` in your browser
+To view a specific movie, open ```127.0.0.1:8000/db/movie/#``` replacing '#' with the ID of the desired movie
