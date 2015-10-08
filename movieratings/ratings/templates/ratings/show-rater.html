@@ -1,5 +1,12 @@
 {% block content %}
-  <h3>{{ rater.id }}</h3>
+  <h3>Rater #{{ rater.id }}</h3>
+  <dl>
+    <dt>Age</dt><dd>{{ rater.age }}</dd>
+    <dt>Gender</dt><dd>{{ rater.gender }}</dd>
+    <dt>Occupation</dt><dd>{{ rater.occupation }}</dd>
+    <dt>Zip-code</dt><dd>{{ rater.zipcode }}</dd>
+  </dl>
+
   <h4>Movies Rated:</h4>
   <ul>
     {% for rating in rater.rating_set.all %}
