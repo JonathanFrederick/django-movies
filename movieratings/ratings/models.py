@@ -2,7 +2,7 @@ from django.db import models
 
 
 # Create your models here.
-class Rater(models.Model):
+class Rater(models.Model):  # TODO Add demographic data functionality
     def __str__(self):
         return str(self.id)
 
