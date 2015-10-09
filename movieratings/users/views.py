@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
-from .models import Profile
 from ratings.models import Rater
 from .forms import UserForm
 from django.contrib.auth import authenticate, login
+from ratings import urls
 
 
 # Create your views here.
