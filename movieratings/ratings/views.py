@@ -16,7 +16,6 @@ def top_20(request):
 
 def show_movie(request, movie_id):
     movie = Movie.objects.get(pk=movie_id)
-    # ratings = movie.rating_set.all()
     return render(request,
                   'ratings/show-movie.html',
                   {'movie': movie})

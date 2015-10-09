@@ -4,7 +4,7 @@ from .models import Movie, Rater, Rating
 
 
 class MovieAdmin(admin.ModelAdmin):
-    list_display = ['id','title']
+    list_display = ['id', 'title']
 
 
 class RaterAdmin(admin.ModelAdmin):

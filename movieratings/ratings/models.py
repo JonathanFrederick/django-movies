@@ -61,15 +61,9 @@ def load_initial_data():
     import json
     import random
     from faker import Faker
-    # from django.contrib.auth.models import User
 
     fake = Faker()
     raters = []
-    # profiles = []
-    # list({User.objects
-    #                  .create_user(username=fake.user_name(),
-    #                               email=fake.email(),
-    #                               password='password') for _ in range(9001)})
     with open('data/users.dat') as f:
         reader = csv.DictReader([line.replace('::', '\t') for line in f],
                                 fieldnames='UserID::Gender::Age::Occupation::Zip-code'.split('::'),
@@ -86,22 +80,15 @@ def load_initial_data():
                     'age': row['Age'],
                     'occupation': row['Occupation'],
                     'zipcode': row['Zip-code'],
-                    # 'profile': new_user.pk
-                    # User.objects
-                    #                .create_user(username=fake.user_name(),
-                    #                             email=fake.email(),
-                    #                             password='password')
                 },
                 'model': 'ratings.Rater',
                 'pk': int(row['UserID']),
             }
             raters.append(rater)
 
-            # profiles.append(new_user)
     with open('ratings/fixtures/raters.json', 'w') as f:
         f.write(json.dumps(raters))
-    # with open('ratings/fixtures/profiles.json', 'w') as f:
-    #     f.write(json.dumps(profiles))
+
 
     movies = []
     with open('data/movies.dat', encoding='windows-1252') as f:
