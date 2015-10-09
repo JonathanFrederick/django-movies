@@ -46,16 +46,20 @@ class Rating(models.Model):
                                     str(self.rater))
 
 
-def create_fake_user(user_id, fake):
-    return {'fields': {'username': fake.user_name(),
-                       'email': fake.email(),
-                       'password':'password'},
+def create_fake_user(user_id, fake, random):
+    return {'fields': {'user': User.objects.create_user(username=fake.user_name()+str(random.randint(100, 999)),
+                                                        email=fake.email(),
+                                                        password='password',
+                                                        pk=user_id).pk},
             'model': 'users.Profile',
             'pk': user_id
             }
+
+
 def load_initial_data():
     import csv
     import json
+    import random
     from faker import Faker
     from users.models import Profile
     # from django.contrib.auth.models import User
@@ -89,11 +93,11 @@ def load_initial_data():
             }
             raters.append(rater)
             try:
-                new_profile = create_fake_user(int(row['UserID']), fake)
+                new_profile = create_fake_user(int(row['UserID']), fake, random)
             except:
                 print("HI", end=' ')
                 fake = Faker()
-                new_profile = create_fake_user(int(row['UserID']), fake)
+                new_profile = create_fake_user(int(row['UserID']), fake, random)
             # new_profile.save()
             profiles.append(new_profile)
     with open('ratings/fixtures/raters.json', 'w') as f:
