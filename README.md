@@ -6,8 +6,8 @@
   - ```direnv allow```
   - ```pip install -r requirements.txt```
   - ```cd movieratings```
-  - ```mkdir /ratings/fixtures```
-  - ```mkdir data```
+  - ```mkdir /ratingsdb/fixtures```
+  - ```mkdir /ratingsdb/data```
 - Download the [MovieLens 1M Dataset](http://files.grouplens.org/datasets/movielens/ml-1m.zip)
 - Unzip MovieLens data to the data directory we just created
 - In Terminal, run:
