@@ -7,12 +7,6 @@ class Movie(models.Model):
     title = models.CharField(max_length=215)
 
 
-# class Rating(models.Model):
-    # stars = models.PositiveSmallIntegerField()
-    # rater = models.ForeignKey(Rater)
-    # movie = models.ForeignKey(Movie)
-
-
 class Rater(models.Model):
     MALE = 'M'
     FEMALE = 'F'
@@ -31,3 +25,9 @@ class Rater(models.Model):
     user = models.OneToOneField(User, null=True)
 
     gender = models.CharField(max_length=1)
+
+
+class Rating(models.Model):
+    stars = models.PositiveSmallIntegerField()
+    rater = models.ForeignKey(Rater)
+    movie = models.ForeignKey(Movie)
