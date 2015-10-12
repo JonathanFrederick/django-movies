@@ -19,12 +19,12 @@ def top_20(request):
 def movie_detail(request, movie_id):
     movie = Movie.objects.get(pk=movie_id)
     return render(request,
-                  'ratings/show-movie.html',
+                  'ratingsdb/show-movie.html',
                   {'movie': movie})
 
 
 def rater_detail(request, rater_id):
     rater = Rater.objects.get(pk=rater_id)
     return render(request,
-                  'ratings/show-rater.html',
+                  'ratingsdb/show-rater.html',
                   {'rater': rater})
