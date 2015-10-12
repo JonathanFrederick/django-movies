@@ -8,6 +8,10 @@ import json
 class Movie(models.Model):
     title = models.CharField(max_length=215)
 
+    def average_rating(self):
+        return self.rating_set.aggregate(models.Avg('stars'))['stars__avg']
+
+
 
 class Rater(models.Model):
     MALE = 'M'
