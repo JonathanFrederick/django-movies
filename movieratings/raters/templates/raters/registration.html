@@ -1,0 +1,9 @@
+
+
+{% block content %}
+  <form method="POST" action="{% url 'rater_register' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Register">
+  </form>
+{% endblock %}
