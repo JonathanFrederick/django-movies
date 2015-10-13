@@ -20,5 +20,6 @@ from raters import views as raters_views
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^register$', raters_views.rater_register, name='rater_register'),
+    url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^db/', include('ratingsdb.urls')),
 ]
