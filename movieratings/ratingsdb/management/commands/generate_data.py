@@ -1,50 +1,13 @@
-from django.db import models
-from django.contrib.auth.models import User
 import csv
 import json
 
-from django.core.validators import RegexValidator
-
-# Create your models here.
-
-
-class Movie(models.Model):
-    title = models.CharField(max_length=215)
-
-    def average_rating(self):
-        return self.rating_set.aggregate(models.Avg('stars'))['stars__avg']
-
-    def __str__(self):
-        return "{} - {}".format(self.id, self.title)
+from django.contrib.auth.models import User
+from django.core.management.base import BaseCommand
 
 
-class Rater(models.Model):
-    MALE = 'M'
-    FEMALE = 'F'
-    NOT_GIVEN = 'X'
-
-    GENDER_CHOICES = (
-        (MALE, 'Male'),
-        (FEMALE, 'Female'),
-        (NOT_GIVEN, 'X'),)
-
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES,
-                              null=True)
-    zipcode = models.CharField(max_length=5, null=True)
-    age = models.PositiveSmallIntegerField(null=True)
-    occupation = models.PositiveSmallIntegerField(null=True)
-    user = models.OneToOneField(User, null=True)
-
-    gender = models.CharField(max_length=1)
-
-    def __str__(self):
-        return str(self.id)
-
-
-class Rating(models.Model):
-    stars = models.PositiveSmallIntegerField(validators=[RegexValidator(r'^[1-5]{1}$', message='Must be an integer between 1 and 5')])
-    rater = models.ForeignKey(Rater)
-    movie = models.ForeignKey(Movie)
+class Command(BaseCommand):
+    def handle(self, *args, **options):
+        load_data()
 
 
 def load_movies():
