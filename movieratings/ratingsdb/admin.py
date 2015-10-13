@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import Movie, Rater, Rating
+
 # Register your models here.
 
 
@@ -8,13 +9,13 @@ class MovieAdmin(admin.ModelAdmin):
 
 
 class RaterAdmin(admin.ModelAdmin):
-    list_display = ['pk']  # just 'id'
+    list_display = ['pk']
 
 
 class RatingAdmin(admin.ModelAdmin):
     list_display = ['movie', 'rater', 'stars']
 
 
-admin.site.register(Movie, MovieAdmin)  # don't need Admin here
-admin.site.register(Rater, RaterAdmin)  # don't need Admin here
+admin.site.register(Movie, MovieAdmin)
+admin.site.register(Rater, RaterAdmin)
 admin.site.register(Rating, RatingAdmin)
