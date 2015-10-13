@@ -2,6 +2,9 @@ from django.db import models
 from django.contrib.auth.models import User
 import csv
 import json
+
+from django.core.validators import RegexValidator
+
 # Create your models here.
 
 
@@ -13,6 +16,7 @@ class Movie(models.Model):
 
     def __str__(self):
         return "{} - {}".format(self.id, self.title)
+
 
 class Rater(models.Model):
     MALE = 'M'
@@ -34,9 +38,11 @@ class Rater(models.Model):
     gender = models.CharField(max_length=1)
 
     def __str__(self):
-        return self.id
+        return str(self.id)
+
+
 class Rating(models.Model):
-    stars = models.PositiveSmallIntegerField()
+    stars = models.PositiveSmallIntegerField(validators=[RegexValidator(r'^[1-5]{1}$', message='Must be an integer between 1 and 5')])
     rater = models.ForeignKey(Rater)
     movie = models.ForeignKey(Movie)
 

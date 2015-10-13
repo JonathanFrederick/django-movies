@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from .forms import UserForm, RateForm
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
 
@@ -25,6 +27,7 @@ def rater_register(request):
                   {'form': form})
 
 
+@login_required
 def user_rate(request):
     if request.method == 'POST':
         form = RateForm(request.POST)
