@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from raters import views as raters_views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^db/', include('ratings.urls')),
-    url(r'^u/', include('users.urls')),
-
+    url(r'^register$', raters_views.rater_register, name='rater_register'),
+    url(r'^accounts/', include('django.contrib.auth.urls')),
+    url(r'^db/', include('ratingsdb.urls')),
 ]
