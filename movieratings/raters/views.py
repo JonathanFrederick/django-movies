@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import UserForm, RateForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from ratingsdb.views import Movie
 
 
 # Create your views here.
@@ -28,16 +29,18 @@ def rater_register(request):
 
 
 @login_required
-def user_rate(request):
+def user_rate(request, movie_id):
     if request.method == 'POST':
         form = RateForm(request.POST)
 
         if form.is_valid():
-            rating = form.save()
+            rating = form.save(commit=False)
+            rating.movie = Movie.objects.get(pk=movie_id)
+            rating.rater = request.user.rater
             rating.save()
 
-            return redirect('db/movies/'+str(rating.movie))
+            return redirect('db/movies/'+str(movie_id))
     else:
         form = RateForm()
     return render(request, 'ratingsdb/show-movie.html',
-                  {'form': form})
+                  {'form': form, 'movie': movie_id})

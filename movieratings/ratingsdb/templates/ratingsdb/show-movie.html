@@ -6,13 +6,13 @@
 
   {% if user.is_authenticated %}
 
-  <form method="POST" action="{% url 'rater_rate' %}">
+  <form method="POST" action="{% url 'rater_rate' movie.pk %}">
     {% csrf_token %}
-    {{form.as_p}}
-    Rate This Movie:<input type='text' name="stars" />
+    Rate This Movie: <input type="text" name="stars" />
+    <!-- {{ form.as_p }} -->
     <input type='submit' value='Submit Rating'>
-    <input type="hidden" name = "movie" value="{{ movie.pk }}" />
-    <input type="hidden" name = "rater" value="{{ user.pk }}" />
+    <!-- <input type="hidden" name = "movie" value="{{ movie.pk }}" />
+    <input type="hidden" name = "rater" value="{{ user.pk }}" /> -->
     <!-- <input type="hidden" name="next" value="{{ next }}" /> -->
   </form>
   {% endif %}
