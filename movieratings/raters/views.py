@@ -39,7 +39,7 @@ def user_rate(request, movie_id):
             rating.rater = request.user.rater
             rating.save()
 
-            return redirect('db/movies/'+str(movie_id))
+            return redirect('ratingsdb.views.movie_detail', movie_id=movie_id)
     else:
         form = RateForm()
     return render(request, 'ratingsdb/show-movie.html',
