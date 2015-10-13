@@ -11,7 +11,8 @@ class Movie(models.Model):
     def average_rating(self):
         return self.rating_set.aggregate(models.Avg('stars'))['stars__avg']
 
-
+    def __str__(self):
+        return "{} - {}".format(self.id, self.title)
 
 class Rater(models.Model):
     MALE = 'M'
@@ -32,7 +33,8 @@ class Rater(models.Model):
 
     gender = models.CharField(max_length=1)
 
-
+    def __str__(self):
+        return self.id
 class Rating(models.Model):
     stars = models.PositiveSmallIntegerField()
     rater = models.ForeignKey(Rater)
