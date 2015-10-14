@@ -1,5 +1,6 @@
 {% extends "base.html" %}
-
+{% load staticfiles %}
+<link href="/static/style.css" rel="stylesheet" type="text/css"/>
 {% block content %}
 <h3>{{ movie.title }}</h3>
   <p><b>Average Rating:  </b>{{ movie.average_rating }}</p>
