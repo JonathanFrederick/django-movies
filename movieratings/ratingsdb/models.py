@@ -42,9 +42,12 @@ class Rater(models.Model):
 
 
 class Rating(models.Model):
-    stars = models.PositiveSmallIntegerField(validators=[RegexValidator(r'^[1-5]{1}$', message='Must be an integer between 1 and 5')])
+    stars = models.PositiveSmallIntegerField(choices=[(1, '1'), (2, '2'),
+                                             (3, '3'), (4, '4'), (5, '5')])
     rater = models.ForeignKey(Rater)
     movie = models.ForeignKey(Movie)
+    timestamp = models.DateTimeField(null=True)
+    review = models.TextField(max_length=200, null=True, blank=True)
 
 
 def load_movies():
