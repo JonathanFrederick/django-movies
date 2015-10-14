@@ -64,6 +64,7 @@ def load_raters():
 
 
 def load_ratings():
+    from datetime import date
     ratings = []
     with open('ratingsdb/data/ratings.dat') as f:
         reader = csv.DictReader([line.replace('::', '\t') for line in f],
@@ -75,7 +76,8 @@ def load_ratings():
                 'fields': {
                     'rater': line['UserID'],
                     'movie': line['MovieID'],
-                    'stars': line['Rating']
+                    'stars': line['Rating'],
+                    'timestamp': str(date.fromtimestamp(int(line['Timestamp'])))
                 },
                 'model': 'ratingsdb.Rating'
             }

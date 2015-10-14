@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import UserForm, RateForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from ratingsdb.views import Movie
+from ratingsdb.views import Movie, Rater
 
 
 # Create your views here.
@@ -17,6 +17,8 @@ def rater_register(request):
             password = user.password
             user.set_password(password)
             user.save()
+            rater = Rater(user=user)
+            rater.save()
 
             user = authenticate(username=user.username,
                                 password=password)
@@ -30,6 +32,8 @@ def rater_register(request):
 
 @login_required
 def user_rate(request, movie_id):
+    from datetime import datetime
+
     if request.method == 'POST':
         form = RateForm(request.POST)
 
@@ -37,6 +41,7 @@ def user_rate(request, movie_id):
             rating = form.save(commit=False)
             rating.movie = Movie.objects.get(pk=movie_id)
             rating.rater = request.user.rater
+            rating.timestamp = datetime.now()
             rating.save()
 
             return redirect('ratingsdb.views.movie_detail', movie_id=movie_id)
