@@ -3,3 +3,5 @@ fake-factory
 werkzeug
 django-debug-toolbar
 django-extensions
+django-bootstrap3
+django-bootstrap-themes==3.0
