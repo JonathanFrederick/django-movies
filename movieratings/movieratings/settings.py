@@ -38,7 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'debug_toolbar',
-    # 'bootstrap3'
+    'bootstrap3'
     # 'bootstrap_themes'
     'ratingsdb',
     'raters',

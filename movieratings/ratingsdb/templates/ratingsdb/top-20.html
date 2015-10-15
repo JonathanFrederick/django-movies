@@ -1,8 +1,11 @@
 {% extends "base.html" %}
+{% load bootstrap3 %}
 
 {% block content %}
 <h4>Top 20 Movies</h4>
   {% for movie in movies %}
     <p><b>{{ movie.title }}</b></p>
   {% endfor %}
+  {% bootstrap_pagination page_obj pages_to_show=5%}
+{% endblock %}
 {% endblock %}
