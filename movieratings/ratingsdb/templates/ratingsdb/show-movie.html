@@ -7,11 +7,22 @@
 
   {% if user.is_authenticated %}
 
-  <form method="POST" action="{% url 'rater_rate' movie.pk %}">
+  <form method="POST" id='rate' action="{% url 'rater_rate' movie.pk %}">
     {% csrf_token %}
-    Rate This Movie: <input type="text" name="stars" />
+    <p>Rate This Movie: <input type="text" name="stars" /></p>
     <!-- {{ form.as_p }} -->
-    <input type='submit' value='Submit Rating'>
+    </br>
+      {% for this_rating in user.rater.rating_set.all %}
+        {% if this_rating in movie.rating_set.all %}
+        {# TODO re-write with Many-to-Many #}
+        <p>You previously rated this a <strong>{{ this_rating.stars }}</strong></p>
+        <p>Would you like to write a review?</p>
+        <textarea form="rate" name="review" maxlength=200 cols=50 rows=5>
+        </textarea>
+      {% endif %}
+    {% endfor %}
+    </br>
+    <input type='submit' value='Submit'>
     <!-- <input type="hidden" name = "movie" value="{{ movie.pk }}" />
     <input type="hidden" name = "rater" value="{{ user.pk }}" /> -->
     <!-- <input type="hidden" name="next" value="{{ next }}" /> -->
