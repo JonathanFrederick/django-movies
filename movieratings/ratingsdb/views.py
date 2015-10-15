@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.db.models import Avg, Count
 from .models import Movie, Rater
+from django.views import generic
+
 
 # Create your views here.
 
@@ -14,6 +16,18 @@ def top_20(request):
     return render(request,
                   'ratingsdb/top-20.html',
                   {'movies': movies})
+
+
+class TopRatedList(generic.ListView):
+    template_name = 'ratingsdb/top-20.html'
+    context_object_name = 'movies'
+    paginate_by = 20
+
+    def get_queryset(self):
+        return Movie.objects.annotate(num_ratings=Count('rating')) \
+                                      .filter(num_ratings__gte=100) \
+                                      .annotate(Avg('rating__stars')) \
+                                      .order_by('-rating__stars__avg')
 
 
 def movie_detail(request, movie_id):
